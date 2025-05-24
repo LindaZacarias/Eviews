@@ -1,5 +1,6 @@
 # Eviews
 Ejercicio 7.1
+
 ' Este programa resuelve el ejemplo 7.1 del libro de AZNAR que genera el cuadro 7.1 (pag.18) y que ilustra el cálculo de las funciones de autocovarianza y autocorrelación muestrales a partir de la serie temporal ¨Y¨ de 20 observaciones
 
 ' Crea la serie Y con los valores extraídos
