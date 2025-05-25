@@ -1,0 +1,515 @@
+
+''''''SERIE 1
+
+' Este programa resuelve el ejemplo 7.1 del libro de AZNAR que genera el cuadro 7.1 (pag.18) y
+' que ilustra el calculo de las funciones de autocovarianza y autocorrelacion muestrales a partir
+' de la serie temporal ¨serie1¨ de 20 observaciones
+'
+' Fija el numero de periodos a rezagar y el numero de observaciones
+!k=16 ' Changed to 16 lags
+!n=60
+
+' Asegúrate de que tu workfile tiene un rango de 1 a 20 observaciones.
+' Por ejemplo, si tu serie 'serie1' ya existe, no necesitas crear un nuevo workfile.
+' Si no, crea un workfile con 20 observaciones.
+' create u 1 20 ' Uncomment if you need to create a new undated workfile
+' series serie1 = @nrnd ' Uncomment and replace with your actual data if 'serie1' doesn't exist
+
+' Calcula la desviacion de (serie1) , ademas la desviacion de( serie1) al cuadrado
+series serie1d=serie1-@mean(serie1)
+series serie1d2=serie1d*serie1d
+
+' Calcula la varianza muestral (estimador de la varianza del proceso...(Gamma))
+!c0=@sum(serie1d2)/!n
+
+' Define los vectores para recibir los calculos de las funciones de
+' autocovarianza(fac) y autocorrelacion muestrales(facm)
+vector(!k) cjota1
+vector(!k) rjota1
+
+' Rutina repetitiva para el calculo de la fac y facm
+for !lag = 1 to !k
+    ' Calcula la serie rezagada y su desviacion
+    series serie1_lag_d = serie1(-!lag) - @mean(serie1)
+    
+    ' Calcula la serie para hallar la autocovarianza para el periodo rezagado
+    series ydserie1_lag_d = serie1d * serie1_lag_d
+    
+    !suma = @sum(ydserie1_lag_d)
+    cjota1(!lag) = !suma / !n
+    rjota1(!lag) = cjota1(!lag) / !c0
+    
+    ' Elimina las series temporales para ahorrar memoria si es necesario
+    ' delete serie1_lag_d ydserie1_lag_d
+next
+
+show cjota1
+show rjota1
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'serie1'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series serie1.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Para mostrar los gráficos de espiga de la ACF
+show rjota1.spike
+
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series serie1.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+
+
+'''''' SERIE 2
+
+' Este programa resuelve el ejemplo 7.1 del libro de AZNAR que genera el cuadro 7.1 (pag.18) y
+' que ilustra el calculo de las funciones de autocovarianza y autocorrelacion muestrales a partir
+' de la serie temporal ¨serie1¨ de 20 observaciones
+'
+' Fija el numero de periodos a rezagar y el numero de observaciones
+!k=16 ' Changed to 16 lags
+!n=60
+
+' Asegúrate de que tu workfile tiene un rango de 1 a 20 observaciones.
+' Por ejemplo, si tu serie 'serie1' ya existe, no necesitas crear un nuevo workfile.
+' Si no, crea un workfile con 20 observaciones.
+' create u 1 20 ' Uncomment if you need to create a new undated workfile
+' series serie1 = @nrnd ' Uncomment and replace with your actual data if 'serie1' doesn't exist
+
+' Calcula la desviacion de (serie1) , ademas la desviacion de( serie1) al cuadrado
+series serie2d=serie2-@mean(serie2)
+series serie2d2=serie2d*serie2d
+
+' Calcula la varianza muestral (estimador de la varianza del proceso...(Gamma))
+!c0=@sum(serie2d2)/!n
+
+' Define los vectores para recibir los calculos de las funciones de
+' autocovarianza(fac) y autocorrelacion muestrales(facm)
+vector(!k) cjota2
+vector(!k) rjota2
+
+' Rutina repetitiva para el calculo de la fac y facm
+for !lag = 1 to !k
+    ' Calcula la serie rezagada y su desviacion
+    series serie2_lag_d = serie2(-!lag) - @mean(serie2)
+    
+    ' Calcula la serie para hallar la autocovarianza para el periodo rezagado
+    series ydserie2_lag_d = serie2d * serie2_lag_d
+    
+    !suma = @sum(ydserie2_lag_d)
+    cjota2(!lag) = !suma / !n
+    rjota2(!lag) = cjota2(!lag) / !c0
+    
+    ' Elimina las series temporales para ahorrar memoria si es necesario
+    ' delete serie1_lag_d ydserie1_lag_d
+next
+
+show cjota2
+show rjota2
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'serie1'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series serie2.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Para mostrar los gráficos de espiga de la ACF
+show rjota2.spike
+
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series serie2.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+
+
+
+''''''' SERIE 3
+' Este programa resuelve el ejemplo 7.1 del libro de AZNAR que genera el cuadro 7.1 (pag.18) y
+' que ilustra el calculo de las funciones de autocovarianza y autocorrelacion muestrales a partir
+' de la serie temporal ¨serie1¨ de 20 observaciones
+'
+' Fija el numero de periodos a rezagar y el numero de observaciones
+!k=16 ' Changed to 16 lags
+!n=60
+
+' Asegúrate de que tu workfile tiene un rango de 1 a 20 observaciones.
+' Por ejemplo, si tu serie 'serie1' ya existe, no necesitas crear un nuevo workfile.
+' Si no, crea un workfile con 20 observaciones.
+' create u 1 20 ' Uncomment if you need to create a new undated workfile
+' series serie1 = @nrnd ' Uncomment and replace with your actual data if 'serie1' doesn't exist
+
+' Calcula la desviacion de (serie1) , ademas la desviacion de( serie1) al cuadrado
+series serie3d=serie3-@mean(serie3)
+series serie3d2=serie3d*serie3d
+
+' Calcula la varianza muestral (estimador de la varianza del proceso...(Gamma))
+!c0=@sum(serie3d2)/!n
+
+' Define los vectores para recibir los calculos de las funciones de
+' autocovarianza(fac) y autocorrelacion muestrales(facm)
+vector(!k) cjota3
+vector(!k) rjota3
+
+' Rutina repetitiva para el calculo de la fac y facm
+for !lag = 1 to !k
+    ' Calcula la serie rezagada y su desviacion
+    series serie3_lag_d = serie3(-!lag) - @mean(serie3)
+    
+    ' Calcula la serie para hallar la autocovarianza para el periodo rezagado
+    series ydserie3_lag_d = serie3d * serie3_lag_d
+    
+    !suma = @sum(ydserie3_lag_d)
+    cjota3(!lag) = !suma / !n
+    rjota3(!lag) = cjota3(!lag) / !c0
+    
+    ' Elimina las series temporales para ahorrar memoria si es necesario
+    ' delete serie1_lag_d ydserie1_lag_d
+next
+
+show cjota3
+show rjota3
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'serie1'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series serie3.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Para mostrar los gráficos de espiga de la ACF
+show rjota3.spike
+
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series serie3.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+
+
+
+'''''' SERIE 4
+' Este programa resuelve el ejemplo 7.2 del libro de AZNAR que genera el cuadro 7.2 (pag.23) y
+' que ilustra el calculo de las funciones de autocovarianza y autocorrelacion muestrales a partir
+' de la serie temporal ¨y ¨ de 20 observaciones
+'
+' Fija el numero de periodos a rezagar y el numero de observaciones
+!k=16 ' Changed to 16 lags
+!n=60
+
+' Asegúrate de que tu workfile tiene un rango de 1 a 20 observaciones.
+' Por ejemplo, si tu serie 'y' ya existe, no necesitas crear un nuevo workfile.
+' Si no, crea un workfile con 20 observaciones.
+' create u 1 20 ' Uncomment if you need to create a new undated workfile
+' series y = @nrnd ' Uncomment and replace with your actual data if 'y' doesn't exist
+
+' Calcula la desviacion de (y) , ademas la desviacion de( y) al cuadrado
+series yd=y-@mean(y)
+series yd2=yd*yd
+
+' Calcula la varianza muestral (estimador de la varianza del proceso...(Gamma))
+!c0=@sum(yd2)/!n
+
+' Define los vectores para recibir los calculos de las funciones de
+' autocovarianza(fac) y autocorrelacion muestrales(facm)
+vector(!k) cjota
+vector(!k) rjota
+
+' Rutina repetitiva para el calculo de la fac y facm
+for !lag = 1 to !k
+    ' Calcula la serie rezagada y su desviacion
+    series y_lag_d = y(-!lag) - @mean(y)
+    
+    ' Calcula la serie para hallar la autocovarianza para el periodo rezagado
+    series ydy_lag_d = yd * y_lag_d
+    
+    !suma = @sum(ydy_lag_d)
+    cjota(!lag) = !suma / !n
+    rjota(!lag) = cjota(!lag) / !c0
+    
+    ' Elimina las series temporales para ahorrar memoria si es necesario
+    ' delete y_lag_d ydy_lag_d
+next
+
+show cjota
+show rjota
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Esta parte es más compleja de generalizar con un bucle simple debido a la
+' construcción de las matrices de Toeplitz.
+' Sin embargo, EViews tiene una función incorporada para esto, que es mucho más eficiente.
+' Para obtener la FAP de una serie 'y', puedes usar el siguiente comando:
+' series y.correl(q) ' Esto mostrará la FAP directamente en una tabla.
+
+' Si quieres calcular la FAP manualmente para los primeros rezagos,
+' puedes adaptar la lógica original, pero extenderla hasta 16 rezagos
+' de forma manual sería extremadamente tedioso.
+' Aquí se muestra cómo podrías empezar para los primeros rezagos,
+' pero se recomienda usar la función .correl(q) para 16 rezagos o más.
+
+vector(!k) fi
+
+' fi(1)
+fi(1) = rjota(1)
+
+' Para fi(2) y adelante, la construcción de matrices se vuelve compleja para un bucle simple
+' La fórmula de Durbin-Levinson es la forma algorítmica de calcular la FAP.
+' EViews lo hace internamente con .correl(q)
+
+' Ejemplo de cómo se vería para fi(2)
+' matrix(2,2) n22
+' matrix(2,2) d22
+' matrix n22(1,1)=1
+' matrix n22(1,2)=rjota(1)
+' matrix n22(2,1)=rjota(1)
+' matrix n22(2,2)=rjota(2)
+
+' matrix d22(1,1)=1
+' matrix d22(1,2)=rjota(1)
+' matrix d22(2,1)=rjota(1)
+' matrix d22(2,2)=1
+' vector fi(2)=@det(n22)/@det(d22)
+
+' Dado el objetivo de 16 rezagos, es **altamente recomendable** usar la función de EViews
+' para la autocorrelación parcial en lugar de implementar el algoritmo de Durbin-Levinson
+' manualmente en el script para tantos rezagos.
+
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'y'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series y.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Si insistes en tener los valores en un vector llamado 'fi',
+' y quieres extraerlos de la salida de la función de autocorrelación,
+' podrías hacer algo como lo siguiente (requiere la serie 'y' para estar en un grupo):
+' group g_y y
+' g_y.correl(16) ' Esto abre la ventana de correlaciones.
+' Puedes copiar los valores de la PACF de la tabla a un vector manualmente,
+' o si necesitas automatizarlo, la programación se vuelve más compleja,
+' a menudo implicando el uso de `scalar` o `vector` para extraer valores
+' de objetos de salida, lo cual no es directamente trivial con el comando `correl`.
+
+' Si lo que necesitas es replicar exactamente la lógica de Aznar y los cálculos manuales,
+' y aún así quieres 16 rezagos para la FAP, el código manual de matrices es impráctico.
+' Sin embargo, la parte de autocovarianza y autocorrelación (rjota) está generalizada.
+
+' Para mostrar los gráficos de espiga de la ACF y PACF
+show rjota.spike
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series y.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+' Si quieres un gráfico de espiga de la PACF calculada por EViews
+' Puedes guardar la PACF de la salida del correlograma en un objeto y luego graficarlo.
+' Por ejemplo, después de ejecutar 'y.correl(16)', puedes ir a la tabla resultante,
+' hacer clic en "Proc" -> "Make Series/Group" y guardar la serie PACF.
+' Luego, esa nueva serie (ej. `pacf_y`) la podrías mostrar con `show pacf_y.spike`.
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'serie1'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series serie1.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Para mostrar los gráficos de espiga de la ACF
+show rjota1.spike
+
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series serie1.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+
+' Calculo de la funcion de autocorrelacion parcial muestral mediante Durbin
+' para la serie "serie1"
+
+!k=16 ' Number of lags
+matrix (!k,!k) phi
+vector (!k) phicol ' Vector to store the partial autocorrelations
+scalar sum_s1 ' Temporary scalar for first sum
+scalar sum_s2 ' Temporary scalar for second sum
+
+' IMPORTANT: Assign the autocorrelations of serie1 (rjota) to FA
+' This ensures the Durbin-Levinson algorithm uses the correct input
+vector(!k) FA = rjota1
+
+' Initialize the first partial autocorrelation coefficient
+matrix phi(1,1)=FA(1)
+phicol(1)=FA(1)
+
+' Durbin-Levinson Recursion
+for !j=1 to !k-1
+    ' Reset temporary sum scalars for each iteration
+    sum_s1 = 0
+    sum_s2 = 0
+    
+    ' Calculate and accumulate sums for the next phi coefficient
+    for !i=1 to !j
+        sum_s1 = sum_s1 + phi(!j,!i) * FA(!j+1-!i)
+        sum_s2 = sum_s2 + phi(!j,!i) * FA(!i)
+    next
+    
+    ' Calculate the (j+1)-th partial autocorrelation coefficient
+    phi(!j+1,!j+1)=(FA(!j+1)- sum_s1) / (1-sum_s2)
+    phicol(!j+1)=phi(!j+1, !j+1)
+    
+    ' Calculate the intermediate phi coefficients for the next iteration
+    for !i=1 to !j
+        phi(!j+1,!i)=phi(!j,!i)-phi(!j+1,!j+1)*phi(!j,!j+1-!i)
+    next
+    
+next
+
+' Display the spike plots of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF)
+show FA.spike
+show phicol.spike
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'serie1'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series serie1.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Para mostrar los gráficos de espiga de la ACF
+show rjota1.spike
+
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series serie1.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+
+' Calculo de la funcion de autocorrelacion parcial muestral mediante Durbin
+' para la serie "serie1"
+
+!k=16 ' Number of lags
+matrix (!k,!k) phi
+vector (!k) phicol ' Vector to store the partial autocorrelations
+scalar sum_s1 ' Temporary scalar for first sum
+scalar sum_s2 ' Temporary scalar for second sum
+
+' IMPORTANT: Assign the autocorrelations of serie1 (rjota) to FA
+' This ensures the Durbin-Levinson algorithm uses the correct input
+vector(!k) FA = rjota2
+
+' Initialize the first partial autocorrelation coefficient
+matrix phi(1,1)=FA(1)
+phicol(1)=FA(1)
+
+' Durbin-Levinson Recursion
+for !j=1 to !k-1
+    ' Reset temporary sum scalars for each iteration
+    sum_s1 = 0
+    sum_s2 = 0
+    
+    ' Calculate and accumulate sums for the next phi coefficient
+    for !i=1 to !j
+        sum_s1 = sum_s1 + phi(!j,!i) * FA(!j+1-!i)
+        sum_s2 = sum_s2 + phi(!j,!i) * FA(!i)
+    next
+    
+    ' Calculate the (j+1)-th partial autocorrelation coefficient
+    phi(!j+1,!j+1)=(FA(!j+1)- sum_s1) / (1-sum_s2)
+    phicol(!j+1)=phi(!j+1, !j+1)
+    
+    ' Calculate the intermediate phi coefficients for the next iteration
+    for !i=1 to !j
+        phi(!j+1,!i)=phi(!j,!i)-phi(!j+1,!j+1)*phi(!j,!j+1-!i)
+    next
+    
+next
+
+' Display the spike plots of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF)
+show FA.spike
+show phicol.spike
+
+
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'serie1'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series serie1.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Para mostrar los gráficos de espiga de la ACF
+show rjota1.spike
+
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series serie1.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+
+' Calculo de la funcion de autocorrelacion parcial muestral mediante Durbin
+' para la serie "serie1"
+
+!k=16 ' Number of lags
+matrix (!k,!k) phi
+vector (!k) phicol ' Vector to store the partial autocorrelations
+scalar sum_s1 ' Temporary scalar for first sum
+scalar sum_s2 ' Temporary scalar for second sum
+
+' IMPORTANT: Assign the autocorrelations of serie1 (rjota) to FA
+' This ensures the Durbin-Levinson algorithm uses the correct input
+vector(!k) FA = rjota3
+
+' Initialize the first partial autocorrelation coefficient
+matrix phi(1,1)=FA(1)
+phicol(1)=FA(1)
+
+' Durbin-Levinson Recursion
+for !j=1 to !k-1
+    ' Reset temporary sum scalars for each iteration
+    sum_s1 = 0
+    sum_s2 = 0
+    
+    ' Calculate and accumulate sums for the next phi coefficient
+    for !i=1 to !j
+        sum_s1 = sum_s1 + phi(!j,!i) * FA(!j+1-!i)
+        sum_s2 = sum_s2 + phi(!j,!i) * FA(!i)
+    next
+    
+    ' Calculate the (j+1)-th partial autocorrelation coefficient
+    phi(!j+1,!j+1)=(FA(!j+1)- sum_s1) / (1-sum_s2)
+    phicol(!j+1)=phi(!j+1, !j+1)
+    
+    ' Calculate the intermediate phi coefficients for the next iteration
+    for !i=1 to !j
+        phi(!j+1,!i)=phi(!j,!i)-phi(!j+1,!j+1)*phi(!j,!j+1-!i)
+    next
+    
+next
+
+' Display the spike plots of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF)
+show FA.spike
+show phicol.spike
+
+
+' Calculo de la funcion de autocorrelacion parcial muestral (FAP)
+' Para obtener las funciones de autocorrelación y autocorrelación parcial de la serie 'serie1'
+' hasta 16 rezagos, el comando más sencillo y directo en EViews es:
+series serie1.correl(16) ' Esto mostrará tanto la ACF (autocorrelación) como la PACF (autocorrelación parcial)
+
+' Para mostrar los gráficos de espiga de la ACF
+show rjota1.spike
+
+' Para mostrar la PACF, puedes usar la función de EViews directamente
+series serie1.correl(q) ' 'q' muestra el correlograma con ACF y PACF, hasta el máximo rezago por defecto o especificado.
+
+' Calculo de la funcion de autocorrelacion parcial muestral mediante Durbin
+' para la serie "serie1"
+
+!k=16 ' Number of lags
+matrix (!k,!k) phi
+vector (!k) phicol ' Vector to store the partial autocorrelations
+scalar sum_s1 ' Temporary scalar for first sum
+scalar sum_s2 ' Temporary scalar for second sum
+
+' IMPORTANT: Assign the autocorrelations of serie1 (rjota) to FA
+' This ensures the Durbin-Levinson algorithm uses the correct input
+vector(!k) FA = rjota
+
+' Initialize the first partial autocorrelation coefficient
+matrix phi(1,1)=FA(1)
+phicol(1)=FA(1)
+
+' Durbin-Levinson Recursion
+for !j=1 to !k-1
+    ' Reset temporary sum scalars for each iteration
+    sum_s1 = 0
+    sum_s2 = 0
+    
+    ' Calculate and accumulate sums for the next phi coefficient
+    for !i=1 to !j
+        sum_s1 = sum_s1 + phi(!j,!i) * FA(!j+1-!i)
+        sum_s2 = sum_s2 + phi(!j,!i) * FA(!i)
+    next
+    
+    ' Calculate the (j+1)-th partial autocorrelation coefficient
+    phi(!j+1,!j+1)=(FA(!j+1)- sum_s1) / (1-sum_s2)
+    phicol(!j+1)=phi(!j+1, !j+1)
+    
+    ' Calculate the intermediate phi coefficients for the next iteration
+    for !i=1 to !j
+        phi(!j+1,!i)=phi(!j,!i)-phi(!j+1,!j+1)*phi(!j,!j+1-!i)
+    next
+    
+next
+
+' Display the spike plots of the Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF)
+show FA.spike
+show phicol.spike
